@@ -1,0 +1,65 @@
+/* ============ Google Font ================== */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@400;600&family=Sono:wght@400;600&display=swap');
+
+/* =============== VARIABLES CSS =========== */
+:root{
+    
+     /* ======== Color ======== */
+    --first-color: rgb(67, 44, 122);
+    --second-color: rgb(128, 72, 156);
+    --third-color: rgb(255, 143, 177);
+    --fourth-color: rgb(252, 226, 219);
+    --white-color: white;
+    --black-color: black;
+
+    /* ========= Font and typography ========= */
+    --body-font: 'IBM Plex Sans Thai Looped', sans-serif;
+    --title-font: 'Sono', sans-serif;
+
+    --biggest-font-size: 2.5rem;
+    --h1-font-size: 2.5rem;
+    --h2-font-size: 1rem;
+    --h3-font-size: .8rem;
+    --normal-font-size: .75rem;
+    --small-font-size: .613rem;
+    --smaller-font-size: .55rem;
+
+    /*========== Font weight ==========*/
+    --font-medium: 400;
+    --font-semi-bold: 600;
+}
+.grid-container{
+    display: grid;
+    grid-template-columns: 30% auto;
+    grid-gap: 5px;
+}
+.grid-container > div
+{
+    border: 0.5px solid palevioletred;
+    font-size: 30px;
+    text-align: center;
+    background-color: white;
+}
+#browsePic{
+    grid-column: 1/span 1;
+}
+#posting{
+    grid-column: 2/span 2;
+    text-align: left;
+    padding-left: 10px;
+    padding-bottom: 20px;
+}
+h1{
+    font-family: var(--title-font);
+    font-size: var(--h1-font-size);
+}
+h2{
+    font-family: var(--title-font);
+    font-size: var(--h2-font-size);
+}
+#avatar img{
+	max-width: 35%;
+	height: auto;
+    padding: 10px;
+    border-radius: 1000px;
+}
