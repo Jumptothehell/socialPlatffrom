@@ -28,38 +28,46 @@
     --font-medium: 400;
     --font-semi-bold: 600;
 }
+
+.item1 {grid-area: avatarArea;}
+.item2 {grid-area: postArea;}
+.item3 {grid-area: feedArea;}
+
 .grid-container{
     display: grid;
-    grid-template-columns: 30% auto;
+    grid-template-areas: 
+    'avatarArea postArea postArea postArea'
+    'feedArea feedArea feedArea feedArea';
     grid-gap: 5px;
+    padding: 10px
 }
 .grid-container > div
 {
     border: 0.5px solid palevioletred;
-    font-size: 30px;
-    text-align: center;
-    background-color: white;
 }
-#browsePic{
-    grid-column: 1/span 1;
+@media only screen and (max-width: 767px) {
+    .grid-container{
+        grid-template-areas: 
+        'avatarArea'
+        'postArea'
+        'feedArea';
+        text-align: center;
+    }
 }
-#posting{
-    grid-column: 2/span 2;
-    text-align: left;
-    padding-left: 10px;
-    padding-bottom: 20px;
+img{
+    margin: auto;
+    display: block;
+	width: 200px;
+	height: 200px;
+    padding: 10px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 h1{
     font-family: var(--title-font);
-    font-size: var(--h1-font-size);
+    /* font-size: var(--h1-font-size); */
 }
 h2{
     font-family: var(--title-font);
-    font-size: var(--h2-font-size);
-}
-#avatar img{
-	max-width: 35%;
-	height: auto;
-    padding: 10px;
-    border-radius: 1000px;
+    /* font-size: var(--h2-font-size); */
 }
