@@ -3,21 +3,23 @@
     <head>
         <meta charset="utf-8">
         <title>Login</title>
-        <!-- ============Remix Icon============ -->
-        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+        <!-- ============Remix Icon============
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet"> -->
 
         <!-- =============CSS=============== -->
+        <!-- <link type="text/css" rel="stylesheet" href="stylefeed.css"> -->
         <link type="text/css" rel="stylesheet" href="css/stylefeed.css">
         
         <!-- ===========javascript========= -->
-        <scripts type="type/   s" src="js/feed.js"></scripts>
+        <!-- <scripts type="type/javascript" src="feed.js"></scripts> -->
+        <scripts type="type/javascript" src="js/feed.js"></scripts>
     </head>
     <body>
         <div class="grid-container">
             <div class="item1">
                 <div id="browsePic">
                     <div id="displayPic">
-                        <img src="img/Girl.png" alt="">
+                        <img src="img/avatar.png" alt="">
                     </div>
 
                     <form action="/profilepic" method="post" id="formId" enctype="multipart/form-data">
@@ -26,11 +28,11 @@
                 </div>
             </div>
             <div class="item2">
-                <div id="welcomeText">
+                <div class="welcomeText">
                     <h1>
-                        HELLO <span id username></span>.
+                        HELLO <span id="username"></span>.
                     </h1>
-                    <h2>Tell us, What your feeling ? </h2>
+                    <h3>Tell us, What your feeling ? </h3>
                 </div>
                 <div id="posting">
                     <textarea name="msg" id="textmsg"  value="" placeholder="" rows="4" cols="50"></textarea>
@@ -39,7 +41,18 @@
                 </div>
             </div>
             <div class="item3">
-                3
+                <div id="feed-container">
+
+                </div>
+            </div>
+            <div class="item4">
+                <div id="onlineTitle">
+                    <h2>Online</h2>
+                </div>
+                <div id="peopleOn">
+                    <div id="ppImg">
+                    </div>
+                </div>
             </div>
         </div>
             <!-- <div id=browsePic>

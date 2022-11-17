@@ -18,8 +18,8 @@
 
     --biggest-font-size: 2.5rem;
     --h1-font-size: 2.5rem;
-    --h2-font-size: 1rem;
-    --h3-font-size: .8rem;
+    --h2-font-size: 1.8rem;
+    --h3-font-size: 1rem;
     --normal-font-size: .75rem;
     --small-font-size: .613rem;
     --smaller-font-size: .55rem;
@@ -32,27 +32,21 @@
 .item1 {grid-area: avatarArea;}
 .item2 {grid-area: postArea;}
 .item3 {grid-area: feedArea;}
+.item4 {grid-area: onlineArea;}
 
 .grid-container{
     display: grid;
     grid-template-areas: 
-    'avatarArea postArea postArea postArea'
-    'feedArea feedArea feedArea feedArea';
+    'avatarArea postArea onlineArea '
+    'feedArea feedArea onlineArea';
+    grid-template-columns: 30% auto 20%;
     grid-gap: 5px;
-    padding: 10px
+    padding: 10px;
+    word-wrap: break-word;
 }
 .grid-container > div
 {
     border: 0.5px solid palevioletred;
-}
-@media only screen and (max-width: 767px) {
-    .grid-container{
-        grid-template-areas: 
-        'avatarArea'
-        'postArea'
-        'feedArea';
-        text-align: center;
-    }
 }
 img{
     margin: auto;
@@ -65,9 +59,75 @@ img{
 }
 h1{
     font-family: var(--title-font);
-    /* font-size: var(--h1-font-size); */
+    font-size: var(--h1-font-size);
+    margin-top: -5px;
 }
 h2{
     font-family: var(--title-font);
-    /* font-size: var(--h2-font-size); */
+    font-size: var(--h2-font-size);
+}
+h3{ 
+    font-family: var(--title-font);
+    font-size: var(--h3-font-size);
+    margin-top: -10px;
+}
+textarea{
+    margin-top: -20px;
+    margin-left: 10px;
+    width: 650px;
+    height: 80px;
+    /* padding: 10px; */
+}
+div.welcomeText {
+    padding: 10px;
+}
+div.welcomeText h1{
+    word-wrap: break-word;
+    word-break: break-all;
+}
+#postbutton{
+    margin-left: 10px;
+    margin-bottom:10px
+}
+#onlineTitle{
+    text-align: center;
+}
+@media only screen and (max-width: 1400px) {
+    textarea{
+        margin-top: -20px;
+        width: 420px;
+        height: 80px;
+    }
+}
+@media only screen and (max-width: 1032px) {
+    textarea{
+        margin-top: -20px;
+        width: 300px;
+        height: 80px;
+    }
+}
+@media only screen and (max-width: 726px) {
+    .grid-container{
+        grid-template-areas: 
+        'avatarArea onlineArea'
+        'postArea onlineArea'
+        'feedArea onlineArea';
+        grid-template-columns: auto 30%;
+        text-align: center;
+    }
+    h1{
+        font-size: var(--h2-font-size);
+    }
+    h2{
+        font-size: var(--h3-font-size);
+    }
+    img{
+        width: 150px;
+        height: 150px;
+    }
+    textarea{
+        margin-top: -20px;
+        width: 220px;
+        height: 80px;
+    }
 }
