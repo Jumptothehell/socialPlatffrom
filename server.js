@@ -57,6 +57,26 @@ const queryDB = (sql) => {
         })
     })
 }
+app.post('/checkLogin',async (req,res) => {
+    let username = req.body.username;
+    console.log(username);
+    let password = req.body.password;
+    console.log(password);
+
+    res.cookie("username", username);
+    return res.redirect('feed.html');
+    // let sql = `SELECT username, password, img FROM ${userinfo_table}`;
+    // let result = await queryDB(sql);//--> object
+    // for(let i = 0; i < result.length; i++)
+    // {
+    //     if(result[i].username == username && result[i].password == password){
+    //         res.cookie("username", username);
+    //         res.cookie("img", result[i].img);
+    //         return res.redirect('feed.html');
+    //     }
+    // }
+    // return res.redirect('login.html?error=1')
+})
 app.listen(port, hostname, () => {
-    console.log(`Server running at   http://${hostname}:${port}/feed.html`); //แก้เป็น register.html
+    console.log(`Server running at   http://${hostname}:${port}/login.html`); //แก้เป็น register.html
 });
