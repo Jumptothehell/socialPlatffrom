@@ -1,0 +1,34 @@
+body {
+    background: #fffeff;
+    font-family: 'Rubik', sans-serif;
+}
+
+form{
+    text-align: center;
+}
+
+#Website_logo {
+    display: flex;
+    margin: auto;
+    width: 35%;
+    border: 8px solid #eb8500;
+    border-radius: 200px;
+    vertical-align: middle;
+}
+
+fieldset{
+    margin: 20px auto;
+    background:#EBF4FB;
+    border:1px solid #ACD8F0; 
+}
+
+input{
+    font-size: 14px;
+    font-style: bold;
+    color: #fffeff;
+    background-color: #22296d;
+    vertical-align: middle;
+    display: flex;
+    margin: auto;
+    border-radius: 100px;
+}
