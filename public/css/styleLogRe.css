@@ -1,3 +1,6 @@
+/* ============ Google Font =============== */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap');
+
 body {
     background: #fffeff;
     font-family: 'Rubik', sans-serif;
@@ -31,4 +34,10 @@ input{
     display: flex;
     margin: auto;
     border-radius: 100px;
+}
+
+#errordisplay{
+	/*margin-top: -20px;*/
+	font-size:12px;
+	color: #EE0019;
 }

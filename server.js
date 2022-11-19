@@ -60,6 +60,18 @@ const queryDB = (sql) => {
 
 let userinfo_table = "userinfo";
 
+app.post('/regisDB', async (req, res) =>{
+    let sql = "CREATE TABLE IF NOT EXISTS userinfo (id INT AUTO_INCREMENT PRIMARY KEY, firstname VARCHAR(200), lastname VARCHAR(200), birthday DATE, email VARCHAR(200), username VARCHAR(200), password VARCHAR(20), img VARCHAR(200))"
+    let result = await queryDB(sql);
+    sql = `INSERT INTO userinfo (firstname, lastname, birthday, email, username, password, img) VALUES ("${req.body.firstname}", "${req.body.lastname}", "${req.body.birthday}", "${req.body.email}", "${req.body.username}", "${req.body.password}", "avatar.png")`;
+    result = await queryDB(sql);
+    console.log("New record created successfully one");
+
+    res.cookie("username",req.body.username);
+    console.log(req.body.username);
+    return res.redirect('login.html');
+})
+
 app.post('/profilepic', (req,res) => {
     let upload = multer({storage: storage, fileFilter: imageFilter}).single('avatar');
     upload(req, res, (err) => {

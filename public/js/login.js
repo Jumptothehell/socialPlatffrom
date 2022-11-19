@@ -9,6 +9,5 @@ function pageLoad(){
 		}else{
 			document.getElementById('errordisplay').innerHTML = "Username or password does not match.";
 		}
-		
 	}	
 }
