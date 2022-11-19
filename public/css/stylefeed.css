@@ -44,19 +44,10 @@
     padding: 10px;
     word-wrap: break-word;
 }
-.grid-container > div
+/* .grid-container > div
 {
     border: 0.5px solid palevioletred;
-}
-img{
-    margin: auto;
-    display: block;
-	width: 200px;
-	height: 200px;
-    padding: 10px;
-    border-radius: 50%;
-    object-fit: cover;
-}
+} */
 h1{
     font-family: var(--title-font);
     font-size: var(--h1-font-size);
@@ -85,12 +76,38 @@ div.welcomeText h1{
     word-wrap: break-word;
     word-break: break-all;
 }
+#formId{
+    text-align: center;
+}
+#browsePic{
+	display: block;
+	margin: auto;
+}
+#displayPic{
+    display: block;
+    margin: auto;
+	width: 200px;
+	height: 200px;
+    border-radius: 50%;
+    border: 2px solid black;
+}
+img{
+    display: block;
+    margin: auto;
+	width: 200px;
+	height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
 #postbutton{
     margin-left: 10px;
     margin-bottom:10px
 }
 #onlineTitle{
     text-align: center;
+}
+.hidden{
+	display: none;
 }
 @media only screen and (max-width: 1400px) {
     textarea{
@@ -120,6 +137,14 @@ div.welcomeText h1{
     }
     h2{
         font-size: var(--h3-font-size);
+    }
+    #displayPic{
+        display: block;
+        margin: auto;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 2px solid black;
     }
     img{
         width: 150px;

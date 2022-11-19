@@ -20,6 +20,7 @@ function getCookie(name){
 }
 
 function pageLoad(){
+	console.log("img click");
 	document.getElementById('postbutton').onclick = getData;
 
 	document.getElementById('displayPic').onclick = fileUpload;

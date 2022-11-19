@@ -68,7 +68,7 @@ app.post('/regisDB', async (req, res) =>{
     console.log("New record created successfully one");
 
     res.cookie("username",req.body.username);
-    console.log(req.body.username);
+    // console.log(req.body.username);
     return res.redirect('login.html');
 })
 
@@ -115,5 +115,5 @@ app.post('/checkLogin',async (req,res) => {
     return res.redirect('login.html?error=1')
 })
 app.listen(port, hostname, () => {
-    console.log(`Server running at   http://${hostname}:${port}/register.html`); //แก้เป็น register.html
+    console.log(`Server running at   http://${hostname}:${port}/login.html`); //แก้เป็น register.html
 });
