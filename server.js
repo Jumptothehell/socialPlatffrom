@@ -14,6 +14,24 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
+const storage = multer.diskStorage({
+    destination: (req, file, callback) => {
+      callback(null, 'public/img/');
+    },
+
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+  });
+
+const imageFilter = (req, file, cb) => {
+    // Accept images only
+    if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
+        req.fileValidationError = 'Only image files are allowed!';
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
 
 let userinfo_table = 'userinfo';
 let userpost_table = 'userpost';
@@ -68,6 +86,41 @@ app.post('/checkLogin',async (req,res) => {
         }
     }
     return res.redirect('login.html?error=1')    
+})
+
+const updateImg = async (username, filen) => {
+    let sql = `UPDATE ${userinfo_table} SET img = '${filen}' WHERE username = '${username}'`;
+    let result = await queryDB(sql);
+    console.log('img update!');
+}
+
+app.post('/profilepic', (req,res) => {
+    let upload = multer({storage: storage, fileFilter: imageFilter}).single('avatar');
+    upload(req, res, (err) => {
+        if(req.fileValidationError){
+            return res.send(req.fileValidationError);
+        }
+        else if (!req.file){
+            return res.send('Please select an image to upload');
+        }
+        else if (err instanceof multer.MulterError){
+            return res.send(err);
+        }
+        else if (err){
+            return res.send(err);
+        }
+        updateImg (req.cookies.username, req.file.filename);
+        res.cookie("img", req.file.filename);
+        return res.redirect('feed.html');
+    })
+})
+
+app.get('/readPost', async (req,res) => {
+    let sql = `SELECT id, msg, username,time FROM ${userpost_table}`;
+    let result = await queryDB(sql);
+    result = Object.assign({}, result);
+    let string = JSON.stringify(result, null, " ");
+    res.send(string);
 })
 
 app.listen(port, hostname, () => {
