@@ -10,32 +10,27 @@
 		<script type="text/javascript" src='js/login.js'></script>
 	</head>
 	<body>
-		<form class="form" action="/regisDB" method="post" accept-charset="utf-8">
-			<fieldset>
-				<legend>Register</legend>
-				<span>* require</span> <br>
-				<span id="errormsg"></span> <br>
-				First name*: 
-				<input type="text" name="firstname" value="" placeholder="" required>
-				Last name*: 
-				<input type="text" name="lastname" value="" placeholder="" required>
-				<br>
-				Birthday*: 
-				<input type="date" name="birthday" value="" placeholder="" required>
-				<br>
-				Email address*: 
-				<input type="email" name="email" value="" placeholder="" required>
-				<br>
-				Username*: 
-				<input type="text" name="username" value="" placeholder="" required>
-				<br>
-				Password*: 
-				<input type="password" name="password" value="" placeholder="" required>
-				<br>
-				<span id="errordisplay"></span><br>
-				<input type="submit" value="Register">
-				<input type="reset" value="Reset">
-			</fieldset>
-		</form>
+		<div id="container">
+			<form class="form" action="/regisDB" method="post" accept-charset="utf-8">
+				<fieldset>
+					<legend>Register</legend>
+					<span>* require</span> <br>
+					First name*: <input type="text" name="firstname" value="" placeholder="" required>
+					Last name*: <input type="text" name="lastname" value="" placeholder="" required>
+					<br>
+					Birthday*: <input type="date" name="birthday" value="" placeholder="" required>
+					<br>
+					Email address*: <input type="email" name="email" value="" placeholder="" required>
+					<br>
+					Username*: <input type="text" name="username" value="" placeholder="" required>
+					<br>
+					Password*: <input type="password" name="password" value="" placeholder="" required>
+					<br>
+					<span id="errordisplay"></span><br>
+					<input type="submit" name="submit" value="Register">
+					<input type="reset" name="reset" value="Reset">
+				</fieldset>
+			</form>
+		</div>
 	</body>
 </html>

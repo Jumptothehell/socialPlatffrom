@@ -11,18 +11,16 @@
 		<script type="text/javascript" src='js/login.js'></script>
 	</head>
 	<body>
-		<img id="Website_logo" src="" alt="Web Logo">
-		<form class="form" action="/checkLogin" method="post" accept-charset="utf-8">
-			<fieldset>
-				<p>Username: </p>
-				<input type="text" name="username" value="" placeholder="" required>
-				<br>
-				<p>Password: </p> 
-				<input type="password" name="password" value="" placeholder=""required>
-				<br>
-				<span id="errordisplay"></span><br>
-				<input type="submit" value="Login">
-			</fieldset>
-		</form>
+		<div id="container">
+			<img id="Website_logo" src="" alt="Web Logo">
+			<form class="form" action="/checkLogin" method="post" accept-charset="utf-8">
+				<fieldset>
+					Username: <input type="text" name="username" value="" placeholder="" required> <br>
+					Password: <input type="password" name="password" value="" placeholder=""required> <br>
+					<span id="errordisplay"></span> <br>
+					<input type="submit" value="Login">
+				</fieldset>
+			</form>
+		</div>
 	</body>
 </html>
