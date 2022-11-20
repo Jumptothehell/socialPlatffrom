@@ -71,5 +71,5 @@ app.post('/checkLogin',async (req,res) => {
 })
 
 app.listen(port, hostname, () => {
-    console.log(`Server running at   http://${hostname}:${port}/register.html`); // แก้เป็น register
+    console.log(`Server running at   http://${hostname}:${port}/login.html`); // แก้เป็น register
 });

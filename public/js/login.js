@@ -1,6 +1,7 @@
 window.onload = pageLoad;
 
 function pageLoad(){
+    alert("hello");
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     if(urlParams.get("error")==1){

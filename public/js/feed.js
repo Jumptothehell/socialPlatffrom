@@ -4,7 +4,7 @@ function getCookie(name){
         value = document.cookie.split("; ").find(row => row.startsWith(name)).split('=')[1];
         return value;
     }catch(err){
-        return false
+        return false;
     }
 }
 function checkCookie() {
@@ -19,8 +19,9 @@ checkCookie();
 window.onload = pageLoad;
 
 function pageLoad(){
+    alert("hello");
     document.getElementById("displayPic") = fileUpload;
-    document.getElementById("fileField").onchange = fileSubmit
+    document.getElementById("fileField").onchange = fileSubmit;
     ;
     var username = getCookie("username");
     document.getElementById("username").innerHTML = username;
