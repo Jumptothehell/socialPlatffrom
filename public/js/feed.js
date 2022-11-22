@@ -20,8 +20,6 @@ checkCookie();
 window.onload = pageLoad;
 
 function pageLoad(){
-    alert("Hi");
-
     document.getElementById("postbutton").onclick = getData;
 
     document.getElementById("displayPic").onclick = fileUpload;
@@ -62,11 +60,12 @@ function getData(){
 async function readPost(){
     let read_ = await fetch('/readPost')
     let content = await read_.json();
+    console.log(content);
     showPost(content);
 }
 
 async function writePost(msg){
-    // var date = new Date();
+    var time = new Date();
     let postout = await fetch('/writePost', {
         method: "POST",
         headers: {
@@ -76,10 +75,11 @@ async function writePost(msg){
         body: JSON.stringify({
             username: getCookie("username"),
             msg: msg,
-            time: time
+            time: CURRENT_TIMESTAMP
         })
     });
     let content = await postout.json();
+    console.log(content);
     showPost(content);
 }
 
