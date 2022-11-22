@@ -67,7 +67,7 @@ async function readPost(){
 
 async function writePost(msg){
     // var date = new Date();
-    let write_ = await fetch('/writePost', {
+    let postout = await fetch('/writePost', {
         method: "POST",
         headers: {
             'Accept': 'application/sjson',
@@ -75,8 +75,8 @@ async function writePost(msg){
         },
         body: JSON.stringify({
             username: getCookie("username"),
-            msg: msg
-            // time: 
+            msg: msg,
+            time: time
         })
     });
     let content = await postout.json();
@@ -91,14 +91,19 @@ function showPost(data){
 		var temp = document.createElement("div");
 		temp.className = "newsfeed";
 		divTag.appendChild(temp);
+
 		var temp1 = document.createElement("div");
 		temp1.className = "postmsg";
-		temp1.innerHTML = data[keys[i]].post;
+		temp1.innerHTML = data[keys[i]].msg;
 		temp.appendChild(temp1);
 		var temp1 = document.createElement("div");
 		temp1.className = "postuser";
-		
 		temp1.innerHTML = "Posted by: "+ data[keys[i]].username;
 		temp.appendChild(temp1);
+
+        var temp2 = document.createElement("div");
+        temp2.className = "posttime";
+        temp2.innerHTML = data[keys[i].time]
+        temp.appendChild(temp2);
 	}
 }

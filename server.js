@@ -128,6 +128,7 @@ app.post('/writePost',async (req,res) => {
     let result = await queryDB(sql);
     sql = `INSERT INTO userpost (msg, username, time) VALUES ("${req.body.msg}", "${req.cookies.username}", NOW())`;
     result = await queryDB(sql);
+
     let sqlselect = `SELECT id, msg, username, time FROM ${userpost_table}`;
     let resultselect = await queryDB(sqlselect);
     resultselect = Object.assign({}, resultselect);
