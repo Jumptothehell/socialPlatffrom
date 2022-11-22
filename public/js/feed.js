@@ -21,6 +21,9 @@ window.onload = pageLoad;
 
 function pageLoad(){
     alert("Hi");
+
+    document.getElementById("postbutton").onclick = getData;
+
     document.getElementById("displayPic").onclick = fileUpload;
     document.getElementById("fileField").onchange = fileSubmit;
 
@@ -29,6 +32,7 @@ function pageLoad(){
 
     console.log(getCookie('img'));
     showImg('img/'+ getCookie('img'));
+    readPost();
 }
 
 function fileUpload(){
@@ -49,9 +53,33 @@ function showImg(filename){
     }
 }
 
+function getData(){
+    var msg = document.getElementById("textmsg").value;
+    document.getElementById("textmsg").value = "";
+    writePost(msg);
+}
+
 async function readPost(){
     let read_ = await fetch('/readPost')
     let content = await read_.json();
+    showPost(content);
+}
+
+async function writePost(msg){
+    // var date = new Date();
+    let write_ = await fetch('/writePost', {
+        method: "POST",
+        headers: {
+            'Accept': 'application/sjson',
+			'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: getCookie("username"),
+            msg: msg
+            // time: 
+        })
+    });
+    let content = await postout.json();
     showPost(content);
 }
 
@@ -66,15 +94,11 @@ function showPost(data){
 		var temp1 = document.createElement("div");
 		temp1.className = "postmsg";
 		temp1.innerHTML = data[keys[i]].post;
-		// console.log(data[keys[i]].post);
-		// console.log(data[i].post);
 		temp.appendChild(temp1);
 		var temp1 = document.createElement("div");
 		temp1.className = "postuser";
 		
 		temp1.innerHTML = "Posted by: "+ data[keys[i]].username;
-		// console.log(data[keys[i]].username);
 		temp.appendChild(temp1);
-		
 	}
 }

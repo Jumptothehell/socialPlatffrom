@@ -39,7 +39,7 @@ let userpost_table = 'userpost';
 const con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "marrode9202",
+    password: "1234567890",
     database: "mydb"
 })
 
@@ -121,6 +121,18 @@ app.get('/readPost', async (req,res) => {
     result = Object.assign({}, result);
     let string = JSON.stringify(result, null, " ");
     res.send(string);
+})
+
+app.post('/writePost',async (req,res) => {
+    let sql = "CREATE TABLE IF NOT EXISTS userpost (id INT AUTO_INCREMENT PRIMARY KEY, msg VARCHAR(1000), username VARCHAR(200), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+    let result = await queryDB(sql);
+    sql = `INSERT INTO userpost (msg, username, time) VALUES ("${req.body.msg}", "${req.cookies.username}", NOW())`;
+    result = await queryDB(sql);
+    let sqlselect = `SELECT id, msg, username, time FROM ${userpost_table}`;
+    let resultselect = await queryDB(sqlselect);
+    resultselect = Object.assign({}, resultselect);
+    res.json(resultselect);
+    res.end();
 })
 
 app.listen(port, hostname, () => {
