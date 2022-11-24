@@ -74,8 +74,8 @@ async function writePost(msg){
         },
         body: JSON.stringify({
             username: getCookie("username"),
-            msg: msg,
-            time: CURRENT_TIMESTAMP
+            msg: msg
+            // time: CURRENT_TIMESTAMP
         })
     });
     let content = await postout.json();

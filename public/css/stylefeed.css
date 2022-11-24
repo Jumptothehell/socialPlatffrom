@@ -28,10 +28,10 @@
    --font-medium: 400;
    --font-semi-bold: 600;
 }
-body{
+/* body{
     font-family: var(--title-font);
     background-color: var(--third-color);
-}
+} */
 
 .item1 {grid-area: avatarArea;}
 .item2 {grid-area: postArea;}
