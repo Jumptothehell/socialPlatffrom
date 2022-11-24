@@ -60,12 +60,21 @@ function getData(){
 async function readPost(){
     let read_ = await fetch('/readPost')
     let content = await read_.json();
-    console.log(content);
     showPost(content);
 }
 
 async function writePost(msg){
-    var time = new Date();
+    let datetime = new Date();
+    let options = {
+        weekday: 'short', 
+        year: 'numeric', 
+        month: 'short', 
+        day: 'numeric', 
+        hour: '2-digit', 
+        minute: '2-digit'
+    };
+    let d = datetime.toLocaleDateString('en-US', options);
+    // console.log(d);
     let postout = await fetch('/writePost', {
         method: "POST",
         headers: {
@@ -74,12 +83,12 @@ async function writePost(msg){
         },
         body: JSON.stringify({
             username: getCookie("username"),
-            msg: msg
-            // time: CURRENT_TIMESTAMP
+            msg: msg,
+            time: d
         })
     });
     let content = await postout.json();
-    console.log(content);
+
     showPost(content);
 }
 
@@ -101,9 +110,21 @@ function showPost(data){
 		temp1.innerHTML = "Posted by: "+ data[keys[i]].username;
 		temp.appendChild(temp1);
 
+        let isoDate = data[keys[i]].time;
+        let date = new Date(isoDate);
+        let options = {
+            weekday: 'short', 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit'
+        };
+        let d = date.toLocaleDateString('en-US', options);
+        console.log(d);
         var temp2 = document.createElement("div");
-        temp2.className = "posttime";
-        temp2.innerHTML = data[keys[i].time]
+        temp2.className = "posttime";        
+        temp2.innerHTML = d;
         temp.appendChild(temp2);
 	}
 }

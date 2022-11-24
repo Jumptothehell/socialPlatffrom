@@ -61,8 +61,12 @@ const queryDB = (sql) => {
     })
 }
 app.post('/regisDB',async (req, res) => {
-    let sql = "CREATE TABLE IF NOT EXISTS userinfo (id INT AUTO_INCREMENT PRIMARY KEY, firstname VARCHAR(200), lastname VARCHAR(200), birthday DATE, email VARCHAR(200), username VARCHAR(200), password VARCHAR(20), img VARCHAR(200))"
+
+    let sql = "CREATE TABLE IF NOT EXISTS userpost (id INT AUTO_INCREMENT PRIMARY KEY, msg VARCHAR(1000), username VARCHAR(200), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP, likebt INT)";
     let result = await queryDB(sql);
+    
+    sql = "CREATE TABLE IF NOT EXISTS userinfo (id INT AUTO_INCREMENT PRIMARY KEY, firstname VARCHAR(200), lastname VARCHAR(200), birthday DATE, email VARCHAR(200), username VARCHAR(200), password VARCHAR(20), img VARCHAR(200))"
+    result = await queryDB(sql);
 
     sql = `INSERT INTO userinfo (firstname, lastname, birthday, email, username, password, img) VALUES ("${req.body.firstname}", "${req.body.lastname}", "${req.body.birthday}", "${req.body.email}", "${req.body.username}", "${req.body.password}", "avatar.png")`;
     result = await queryDB(sql);
@@ -130,19 +134,16 @@ app.get('/readPost', async (req,res) => {
 })
 
 app.post('/writePost',async (req,res) => {
-    let sql = "CREATE TABLE IF NOT EXISTS userpost (id INT AUTO_INCREMENT PRIMARY KEY, msg VARCHAR(1000), username VARCHAR(200), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+    let sql = `INSERT INTO userpost (msg, username, time) VALUES ("${req.body.msg}", "${req.cookies.username}", NOW())`;
     let result = await queryDB(sql);
-    sql = `INSERT INTO userpost (msg, username, time) VALUES ("${req.body.msg}", "${req.cookies.username}", NOW())`;
-    result = await queryDB(sql);
     console.log(result);
 
     let sqlselect = `SELECT id, msg, username, time FROM ${userpost_table}`;
     let resultselect = await queryDB(sqlselect);
-    console.log(resultselect);
     resultselect = Object.assign({}, resultselect);
     res.json(resultselect);
 })
 
 app.listen(port, hostname, () => {
-    console.log(`Server running at   http://${hostname}:${port}/register.html`); // แก้เป็น register
+    console.log(`Server running at   http://${hostname}:${port}/login.html`); // แก้เป็น register
 });

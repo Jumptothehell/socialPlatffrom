@@ -81,6 +81,12 @@ div.welcomeText h1{
     word-wrap: break-word;
     word-break: break-all;
 }
+div.newsfeed{
+    padding: 20px;
+}
+div.posttime {
+    text-align: right;
+}
 #formId{
     text-align: center;
 }
