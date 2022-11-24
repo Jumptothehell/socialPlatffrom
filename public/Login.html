@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset='utf-8'>
-	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
-	<title>Login</title>
-	<meta name='viewport' content='width=device-width, initial-scale=1'>
-	<link rel='stylesheet' type='text/css' media='screen' href='styleLogRe.css'>
-	<script src='login.js'></script>
-</head>
-<body>
-	<img id="Website_logo" src="" alt="Web Logo">
-	<form name="myLogin" id = "myLogin">
-		<fieldset>
-			<p>Username: </p>
-			<input type="text" name="username" id="username" required>
-			<br>
-			<p>Password: </p> 
-			<input type="password" name="password" required>
-			<br>
-			<input type="submit" value="Login">
-		</fieldset>
-	</form>
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<title>Login</title>
+		<link type="text/css" rel="stylesheet" href="css/style.css">
+		<script type="text/javascript" src="js/login.js"></script>
+	</head>
+	<body>
+		<div id=container>
+			<form class="form" action="/checkLogin" method="post" accept-charset="utf-8">
+				<fieldset>
+					<legend> Login </legend>
+					Username:<input type="text" name="username" value="" placeholder="" required><br>
+					Password: <input type="password" name="password" value="" placeholder="" required><br>
+					<span id="errordisplay"></span><br>
+					<input type="submit" value="Login">
+				</fieldset>
+			</form>
+			
+		</div>
+	
+	</body>
 </html>
