@@ -126,5 +126,9 @@ function showPost(data){
         temp2.className = "posttime";        
         temp2.innerHTML = d;
         temp.appendChild(temp2);
+
+		var temp3 = document.createElement("div");
+		temp3.className = "likebt"
+		
 	}
 }

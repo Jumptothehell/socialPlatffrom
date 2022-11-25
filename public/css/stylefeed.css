@@ -5,10 +5,10 @@
 :root{
     
     /* ======== Color ======== */
-   --first-color: rgb(67, 44, 122);
-   --second-color: rgb(128, 72, 156);
-   --third-color: rgb(255, 143, 177);
-   --fourth-color: rgb(252, 226, 219);
+   --first-color: rgb(255, 248, 234);
+   --second-color: rgb(158, 118, 118);
+   --third-color: rgb(129, 91, 91);
+   --fourth-color: rgb(89, 69, 69);
    --white-color: white;
    --black-color: black;
 
@@ -28,34 +28,58 @@
    --font-medium: 400;
    --font-semi-bold: 600;
 }
-/* body{
+body{
     font-family: var(--title-font);
-    background-color: var(--third-color);
-} */
 
-.item1 {grid-area: avatarArea;}
-.item2 {grid-area: postArea;}
-.item3 {grid-area: onlineArea;}
+    background-color: var(--third-color);
+}
+
+.item1 {
+    grid-area: avatarArea;
+    
+    margin: auto;
+}
+.item2 {
+    grid-area: postArea;
+
+    background-color: var(--first-color);
+
+    margin: 20px;
+    padding: 20px;
+
+    border-radius: 30px;
+}
+.item3 {
+    grid-area: onlineArea;
+
+    background-color: var(--first-color);
+    
+    border-radius: 30px;
+}
 .item4 {grid-area: feedArea;}
 
 
 .grid-container{
     display: grid;
+
     grid-template-areas: 
     'avatarArea postArea onlineArea '
     'feedArea feedArea onlineArea';
     grid-template-columns: 30% auto 20%;
     grid-gap: 5px;
+
     padding: 10px;
+
     word-wrap: break-word;
 }
-.grid-container > div
+/* .grid-container > div
 {
     border: 0.5px solid black;
-}
+} */
 h1{
     font-family: var(--title-font);
     font-size: var(--h1-font-size);
+
     margin-top: -5px;
 }
 h2{
@@ -65,6 +89,7 @@ h2{
 h3{ 
     font-family: var(--title-font);
     font-size: var(--h3-font-size);
+
     margin-top: -10px;
 }
 textarea{
@@ -82,6 +107,9 @@ div.welcomeText h1{
     word-break: break-all;
 }
 div.newsfeed{
+    background-color: var(--first-color);
+    border-radius: 30px;
+    margin: 20px;
     padding: 20px;
 }
 div.posttime {
@@ -97,17 +125,24 @@ div.posttime {
 #displayPic{
     display: block;
     margin: auto;
+
 	width: 200px;
 	height: 200px;
+
     border-radius: 50%;
     border: 2px solid black;
+
+    background-color: var(--white-color);
 }
 img{
     display: block;
     margin: auto;
+
 	width: 200px;
 	height: 200px;
+
     border-radius: 50%;
+
     object-fit: cover;
 }
 #postbutton{
