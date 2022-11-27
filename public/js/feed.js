@@ -96,9 +96,11 @@ function showPost(data){
 	var keys = Object.keys(data);
 	var divTag = document.getElementById("feed-container");
 	divTag.innerHTML = "";
+
 	for (var i = keys.length-1; i >=0 ; i--) {
 		var temp = document.createElement("div");
 		temp.className = "newsfeed";
+        temp.id = "newsfeed" + [i];
 		divTag.appendChild(temp);
 
 		var temp1 = document.createElement("div");
@@ -110,9 +112,9 @@ function showPost(data){
 		temp1.innerHTML = "Posted by: "+ data[keys[i]].username;
 		temp.appendChild(temp1);
 
-        let isoDate = data[keys[i]].time;
-        let date = new Date(isoDate);
-        let options = {
+        var isoDate = data[keys[i]].time;
+        var date = new Date(isoDate);
+        var options = {
             weekday: 'short', 
             year: 'numeric', 
             month: 'short', 
@@ -120,15 +122,36 @@ function showPost(data){
             hour: '2-digit', 
             minute: '2-digit'
         };
-        let d = date.toLocaleDateString('en-US', options);
-        console.log(d);
+        var d = date.toLocaleDateString('en-US', options);
         var temp2 = document.createElement("div");
         temp2.className = "posttime";        
         temp2.innerHTML = d;
         temp.appendChild(temp2);
 
-		var temp3 = document.createElement("div");
-		temp3.className = "likebt"
-		
+		var temp3 = document.createElement("button");
+        temp3.classList.add("nav__love", "love-no")
+        temp3.id = "nav-love" + [i];
+
+        var temp4 = document.createElement("div");
+        temp4.id = "Icon-love";
+        temp4.innerHTML = '<i class="ri-heart-line"></i>';
+        temp3.appendChild(temp4);
+
+        var temp5 = document.createElement("div");
+        temp5.id = "count"
+        temp5.innerHTML = ""
+        temp3.appendChild(temp5);
+
+        temp.appendChild(temp3);
 	}
 }
+
+const getlovedbt = document.getElementsByClassName("nav__love");
+for(let i = 0; i < getlovedbt.length; i++)
+{
+    console.log(i);
+}
+
+
+
+
