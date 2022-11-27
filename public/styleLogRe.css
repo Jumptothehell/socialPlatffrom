@@ -1,3 +1,7 @@
+
+/* ============ Google Font ================== */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@400;600&family=Sono:wght@400;600&display=swap');
+
 body {
     background: #fffeff;
     font-family: 'Rubik', sans-serif;
@@ -5,6 +9,7 @@ body {
 
 form{
     text-align: center;
+    font-family: 'Sono', sans-serif;
 }
 
 #Website_logo {
@@ -17,9 +22,11 @@ form{
 }
 
 fieldset{
+    box-sizing: border-box;
     margin: 20px auto;
     background:#EBF4FB;
     border:1px solid #ACD8F0; 
+    justify-content: space-evenly;
 }
 
 input{
@@ -32,3 +39,5 @@ input{
     margin: auto;
     border-radius: 100px;
 }
+
+
