@@ -80,7 +80,7 @@ async function writePost(msg){
     });
     let content = await postout.json();
     showPost(content);
-    console.log(content)
+        console.log(content)
 }
 
 function showPost(data){
