@@ -123,23 +123,19 @@ app.post('/profilepic', (req,res) => {
     })
 })
 
+app.post('/lovedPost', async (req, res) => {
+    let sql = `UPDATE ${userpost_table} SET likebt = '${filen}' WHERE username = '${username}'`;
+})
 app.get('/readPost', async (req,res) => {
-    let sql = `SELECT id, msg, username,time FROM ${userpost_table}`;
+    let sql = `SELECT id, msg, username, time, likebt FROM ${userpost_table}`;
     let result = await queryDB(sql);
     result = Object.assign({}, result);
-
-    // console.log(result);
-
-    let string = JSON.stringify(result, null, " ");
-
-    // console.log(string);
-    res.send(string);
+    res.json(result);
 })
 
 app.post('/writePost',async (req,res) => {
     let sql = `INSERT INTO userpost (msg, username, time, likebt) VALUES ("${req.body.msg}", "${req.cookies.username}", NOW(), "0")`;
     let result = await queryDB(sql);
-
     let sqlselect = `SELECT id, msg, username, time, likebt FROM ${userpost_table}`;
     let resultselect = await queryDB(sqlselect);
     resultselect = Object.assign({}, resultselect);
