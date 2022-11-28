@@ -65,16 +65,8 @@ async function readPost(){
 
 async function writePost(msg){
     let datetime = new Date();
-    let options = {
-        weekday: 'short', 
-        year: 'numeric', 
-        month: 'short', 
-        day: 'numeric', 
-        hour: '2-digit', 
-        minute: '2-digit'
-    };
-    let d = datetime.toLocaleDateString('en-US', options);
-    // console.log(d);
+    let loved;
+
     let postout = await fetch('/writePost', {
         method: "POST",
         headers: {
@@ -84,11 +76,11 @@ async function writePost(msg){
         body: JSON.stringify({
             username: getCookie("username"),
             msg: msg,
-            time: d
+            time: datetime,
+            likebt: Number
         })
     });
     let content = await postout.json();
-
     showPost(content);
 }
 
@@ -99,6 +91,7 @@ function showPost(data){
 	for (var i = keys.length-1; i >=0 ; i--) {
 		var temp = document.createElement("div");
 		temp.className = "newsfeed";
+        temp.id = "newsfeed" + [i];
 		divTag.appendChild(temp);
 
 		var temp1 = document.createElement("div");
@@ -110,9 +103,9 @@ function showPost(data){
 		temp1.innerHTML = "Posted by: "+ data[keys[i]].username;
 		temp.appendChild(temp1);
 
-        let isoDate = data[keys[i]].time;
-        let date = new Date(isoDate);
-        let options = {
+        var isoDate = data[keys[i]].time;
+        var date = new Date(isoDate);
+        var options = {
             weekday: 'short', 
             year: 'numeric', 
             month: 'short', 
@@ -120,15 +113,46 @@ function showPost(data){
             hour: '2-digit', 
             minute: '2-digit'
         };
-        let d = date.toLocaleDateString('en-US', options);
-        console.log(d);
+        var d = date.toLocaleDateString('en-US', options);
         var temp2 = document.createElement("div");
         temp2.className = "posttime";        
         temp2.innerHTML = d;
         temp.appendChild(temp2);
 
-		var temp3 = document.createElement("div");
-		temp3.className = "likebt"
-		
+		var temp3 = document.createElement("button");
+        temp3.classList.add("nav_", "unloved");
+        temp3.id = "nav-love" + [i];
+        temp3.setAttribute("onclick", "IsClicked(this.id)");
+
+        var temp4 = document.createElement("div");
+        temp4.id = "Icon-love";
+        temp4.innerHTML = '<i class="ri-heart-line"></i>' + " " + data[keys[i]].likebt;
+        temp3.appendChild(temp4);
+        
+        temp.appendChild(temp3);
 	}
 }
+
+function IsClicked(clickedID){
+    let getLoved = document.getElementById(clickedID);
+    let loved = 0;
+    getLoved.classList.toggle("loved");
+    if(getLoved.className == "nav_ unloved")
+    {
+        console.log("false");
+        return loved = 0;
+    }else{
+        console.log("true");
+        return loved = 1;
+    }
+}
+// const getlovedbt = document.getElementsByClassName("nav__love");
+// console.log("clicked")
+// for(let i = 0; i <= getlovedbt.length; i++)
+// {
+//     console.log(i);
+// }
+
+
+
+
