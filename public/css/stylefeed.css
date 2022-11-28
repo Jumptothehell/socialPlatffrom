@@ -5,24 +5,21 @@
 :root{
     
     /* ======== Color ======== */
-   --first-color: rgb(255, 248, 234);
-   --second-color: rgb(158, 118, 118);
-   --third-color: rgb(129, 91, 91);
-   --fourth-color: rgb(89, 69, 69);
-   --white-color: white;
-   --black-color: black;
+   --container-color: hsl(53, 65%, 90%);
+   --first-color: rgb(149, 209, 204);
+   --second-color: hsl(205, 58%, 31%);
+   ---color: white;
 
    /* ========= Font and typography ========= */
    --body-font: 'IBM Plex Sans Thai Looped', sans-serif;
    --title-font: 'Sono', sans-serif;
 
-   --biggest-font-size: 2.5rem;
+   --biggest-font-size: 3rem;
    --h1-font-size: 2.5rem;
-   --h2-font-size: 1.8rem;
-   --h3-font-size: 1rem;
-   --normal-font-size: .75rem;
-   --small-font-size: .613rem;
-   --smaller-font-size: .55rem;
+   --h2-font-size: 2rem;
+   --h3-font-size: 1.7rem;
+   --normal-font-size: 1rem;
+   --small-font-size: 0.85rem;
 
    /*========== Font weight ==========*/
    --font-medium: 400;
@@ -31,7 +28,11 @@
 body{
     font-family: var(--title-font);
 
-    background-color: var(--third-color);
+    background: linear-gradient(
+        160deg,
+        hsla(205, 58%, 31%, 1) -4%,
+        hsla(208, 34%, 50%, 0.5) 50%
+    );
 }
 
 .item1 {
@@ -42,12 +43,14 @@ body{
 .item2 {
     grid-area: postArea;
 
-    background-color: var(--first-color);
+    background-color: var(--container-color);
 
     margin: 20px;
     padding: 20px;
 
     border-radius: 30px;
+
+    box-shadow: 0 8px 20px hsla(19, 64%, 48%, .08);
 }
 .item3 {grid-area: feedArea;}
 
@@ -65,10 +68,6 @@ body{
 
     word-wrap: break-word;
 }
-/* .grid-container > div
-{
-    border: 0.5px solid black;
-} */
 h1{
     font-family: var(--title-font);
     font-size: var(--h1-font-size);
@@ -82,31 +81,83 @@ h2{
 h3{ 
     font-family: var(--title-font);
     font-size: var(--h3-font-size);
-
     margin-top: -10px;
 }
 textarea{
+    border-top: 2px solid var(--first-color);
     margin-top: -20px;
     margin-left: 10px;
-    width: 650px;
+    width: 800px;
     height: 80px;
-    /* padding: 10px; */
+    border-radius: 80px;
+    padding-top: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 10px;
+}
+img{
+    display: block;
+    margin: auto;
+	width: 200px;
+	height: 200px;
+    border-radius: 50%;
+
+    object-fit: cover;
+}
+button{
+    display: flex;
+    background-color: var(--first-color);
+    padding: 3px;
+    padding-bottom: 0px;
+    border-radius: 50%;
+    border: none;
+    outline: none;
 }
 div.welcomeText {
     padding: 10px;
+    font-weight: var(--font-semi-bold);
 }
 div.welcomeText h1{
     word-wrap: break-word;
     word-break: break-all;
 }
-div.newsfeed{
-    background-color: var(--first-color);
-    border-radius: 30px;
+span#username {
+    color: var(--second-color);
+    text-transform: uppercase;
+}
+button#postbutton{
+    display:flex;
+    justify-content: flex-end;
+    margin: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 0.2px solid rgb(52, 52, 52);;
+    border-radius: 10px;
+    text-align: center;
+}
+div#feed-container{
+    text-align: left;
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+}
+div.postmsg{
+    font-weight: var(--font-semi-bold);
+}
+div.postuser{
+    margin-top: 4px;
+    margin-left: 20px;
+}
+div.posttime{
+    text-align: right;
+    font-size: var(--small-font-size);
+}
+form.form{
+    background-color: var(--container-color);
+    box-shadow: 0 8px 20px hsla(19, 64%, 48%, .08);
+    row-gap: 10px;
+    border-radius: 40px;
     margin: 20px;
     padding: 20px;
-}
-div.posttime {
-    text-align: right;
 }
 #formId{
     text-align: center;
@@ -123,39 +174,25 @@ div.posttime {
 	height: 200px;
 
     border-radius: 50%;
-    border: 2px solid black;
+    border: 2px solid var(--second-color);
 
     background-color: var(--white-color);
-}
-img{
-    display: block;
-    margin: auto;
-
-	width: 200px;
-	height: 200px;
-
-    border-radius: 50%;
-
-    object-fit: cover;
-}
-#postbutton{
-    margin-left: 10px;
-    margin-bottom:10px
 }
 #onlineTitle{
     text-align: center;
 }
+
 .hidden{
 	display: none;
 }
-@media only screen and (max-width: 1400px) {
+@media only screen and (max-width: 1297px) {
     textarea{
         margin-top: -20px;
-        width: 420px;
+        width: 500px;
         height: 80px;
     }
 }
-@media only screen and (max-width: 1032px) {
+@media only screen and (max-width: 1100px) {
     textarea{
         margin-top: -20px;
         width: 300px;
@@ -171,6 +208,11 @@ img{
         grid-template-columns: auto;
         text-align: center;
     }
+    div#feed-container{
+        text-align: left;
+        font-family: var(--body-font);
+        font-size: var(--normal-font-size);
+    }
     h1{
         font-size: var(--h2-font-size);
     }
@@ -185,13 +227,18 @@ img{
         border-radius: 50%;
         border: 2px solid black;
     }
+    button#postbutton{
+        margin: auto;
+        margin-top: 10px;
+        font-family: var(--title-font);
+    }
     img{
         width: 150px;
         height: 150px;
     }
     textarea{
         margin-top: -20px;
-        width: 220px;
+        width: 300px;
         height: 80px;
     }
 }
