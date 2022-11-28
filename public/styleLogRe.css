@@ -15,7 +15,7 @@ form{
 #Website_logo {
     display: flex;
     margin: auto;
-    width: 35%;
+    width: 20%;
     border: 8px solid #eb8500;
     border-radius: 200px;
     vertical-align: middle;
@@ -23,9 +23,10 @@ form{
 
 fieldset{
     box-sizing: border-box;
+    width: 50%;
     margin: 20px auto;
     background:#EBF4FB;
-    border:1px solid #ACD8F0; 
+    border:1px solid #95D1CC; 
     justify-content: space-evenly;
 }
 
