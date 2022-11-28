@@ -4,11 +4,10 @@ const fs = require('fs');
 const hostname = 'localhost';
 const port = 3000;
 const bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 const multer = require('multer');
 const path = require('path');
 const mysql = require('mysql');
-
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -35,6 +34,7 @@ const imageFilter = (req, file, cb) => {
 
 let userinfo_table = 'userinfo';
 let userpost_table = 'userpost';
+let userlovedpost_table = 'userlovedpost';
 
 const con = mysql.createConnection({
     host: "localhost",
@@ -60,12 +60,14 @@ const queryDB = (sql) => {
         })
     })
 }
-app.post('/regisDB',async (req, res) => {
-
-    let sql = "CREATE TABLE IF NOT EXISTS userpost (id INT AUTO_INCREMENT PRIMARY KEY, msg VARCHAR(1000), username VARCHAR(200), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP, likebt INT)";
+app.post('/regisDB',async (req, res) => { 
+    let sql = "CREATE TABLE IF NOT EXISTS userinfo (id INT AUTO_INCREMENT PRIMARY KEY, firstname VARCHAR(200), lastname VARCHAR(200), birthday DATE, email VARCHAR(200), username VARCHAR(200), password VARCHAR(20), img VARCHAR(200))"
     let result = await queryDB(sql);
-    
-    sql = "CREATE TABLE IF NOT EXISTS userinfo (id INT AUTO_INCREMENT PRIMARY KEY, firstname VARCHAR(200), lastname VARCHAR(200), birthday DATE, email VARCHAR(200), username VARCHAR(200), password VARCHAR(20), img VARCHAR(200))"
+
+    sql = "CREATE TABLE IF NOT EXISTS userpost (id INT AUTO_INCREMENT PRIMARY KEY, msg VARCHAR(1000), username VARCHAR(200), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+    result = await queryDB(sql);
+
+    sql = "CREATE TABLE IF NOT EXISTS userlovedpost (id INT AUTO_INCREMENT PRIMARY KEY, userid INT, postid INT, loved BOOLEAN)"
     result = await queryDB(sql);
 
     sql = `INSERT INTO userinfo (firstname, lastname, birthday, email, username, password, img) VALUES ("${req.body.firstname}", "${req.body.lastname}", "${req.body.birthday}", "${req.body.email}", "${req.body.username}", "${req.body.password}", "avatar.png")`;
@@ -82,7 +84,7 @@ app.post('/checkLogin',async (req,res) => {
 
     let sql = `SELECT username, password, img FROM ${userinfo_table}`;
     let result = await queryDB(sql);
-    for(let i = 0; i < result.length; i++)
+    for(let i = 0; i <= result.length; i++)
     {
         if(result[i].username == username && result[i].password == password){
             res.cookie("username", username);
@@ -99,9 +101,6 @@ const updateImg = async (username, filen) => {
     console.log('img update!');
 }
 
-const  postLike = async () => {
-    let sql = `UPDATE ${userpost_table} SET img = '${filen}' WHERE username = '${username}'`;
-}
 app.post('/profilepic', (req,res) => {
     let upload = multer({storage: storage, fileFilter: imageFilter}).single('avatar');
     upload(req, res, (err) => {
@@ -123,20 +122,32 @@ app.post('/profilepic', (req,res) => {
     })
 })
 
-app.post('/lovedPost', async (req, res) => {
-    let sql = `UPDATE ${userpost_table} SET likebt = '${filen}' WHERE username = '${username}'`;
+app.post('/lovedPost', async (req, res) => { 
+    // let sql = `SELECT id, username FROM ${userinfo_table}`;
+    // let result = await queryDB(sql);
+
+    // let postsql = `SELECT id FROM ${userinfo_table}`;
+    // let postresult = await queryDB(sql);
+    // for (let i = 0; i <= result.length; i++)
+    // {
+    //     if(result[i].username == req.cookies.username){
+    //         let sql = `SELECT id, username FROM ${userinfo_table}`;
+    //         let result = await queryDB(sql);
+    //     }
+    // }
 })
+
 app.get('/readPost', async (req,res) => {
-    let sql = `SELECT id, msg, username, time, likebt FROM ${userpost_table}`;
+    let sql = `SELECT id, msg, username, time FROM ${userpost_table}`;
     let result = await queryDB(sql);
     result = Object.assign({}, result);
     res.json(result);
 })
 
 app.post('/writePost',async (req,res) => {
-    let sql = `INSERT INTO userpost (msg, username, time, likebt) VALUES ("${req.body.msg}", "${req.cookies.username}", NOW(), "0")`;
+    let sql = `INSERT INTO userpost (msg, username, time) VALUES ("${req.body.msg}", "${req.cookies.username}", NOW())`;
     let result = await queryDB(sql);
-    let sqlselect = `SELECT id, msg, username, time, likebt FROM ${userpost_table}`;
+    let sqlselect = `SELECT id, msg, username, time FROM ${userpost_table}`;
     let resultselect = await queryDB(sqlselect);
     resultselect = Object.assign({}, resultselect);
     res.json(resultselect);

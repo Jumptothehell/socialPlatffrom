@@ -65,7 +65,6 @@ async function readPost(){
 
 async function writePost(msg){
     let datetime = new Date();
-    let loved;
 
     let postout = await fetch('/writePost', {
         method: "POST",
@@ -76,12 +75,12 @@ async function writePost(msg){
         body: JSON.stringify({
             username: getCookie("username"),
             msg: msg,
-            time: datetime,
-            likebt: Number
+            time: datetime
         })
     });
     let content = await postout.json();
     showPost(content);
+    console.log(content)
 }
 
 function showPost(data){
@@ -89,8 +88,11 @@ function showPost(data){
 	var divTag = document.getElementById("feed-container");
 	divTag.innerHTML = "";
 	for (var i = keys.length-1; i >=0 ; i--) {
-		var temp = document.createElement("div");
-		temp.className = "newsfeed";
+		var temp = document.createElement("form");
+		temp.className = "form";
+        temp.action = "/lovedPost";
+        temp.method = "post";
+        temp.acceptCharset = "utf-8";
         temp.id = "newsfeed" + [i];
 		divTag.appendChild(temp);
 
@@ -120,13 +122,14 @@ function showPost(data){
         temp.appendChild(temp2);
 
 		var temp3 = document.createElement("button");
+        temp3.type = "submit";
         temp3.classList.add("nav_", "unloved");
         temp3.id = "nav-love" + [i];
         temp3.setAttribute("onclick", "IsClicked(this.id)");
 
         var temp4 = document.createElement("div");
         temp4.id = "Icon-love";
-        temp4.innerHTML = '<i class="ri-heart-line"></i>' + " " + data[keys[i]].likebt;
+        temp4.innerHTML = '<i class="ri-heart-line"></i>' + " ";
         temp3.appendChild(temp4);
         
         temp.appendChild(temp3);
@@ -134,25 +137,18 @@ function showPost(data){
 }
 
 function IsClicked(clickedID){
-    let getLoved = document.getElementById(clickedID);
-    let loved = 0;
+    let name = "#" + clickedID;
+
+    let getLoved = document.querySelector(name);
+    let countloved = getLoved.querySelector("#Icon-love");
+    // console.log(getLoved.parentNode.id);
+
     getLoved.classList.toggle("loved");
+
     if(getLoved.className == "nav_ unloved")
     {
-        console.log("false");
-        return loved = 0;
+        countloved.innerHTML = '<i class="ri-heart-line"></i>'
     }else{
-        console.log("true");
-        return loved = 1;
+        countloved.innerHTML = '<i class="ri-heart-fill"></i>'
     }
 }
-// const getlovedbt = document.getElementsByClassName("nav__love");
-// console.log("clicked")
-// for(let i = 0; i <= getlovedbt.length; i++)
-// {
-//     console.log(i);
-// }
-
-
-
-
