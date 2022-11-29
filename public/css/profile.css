@@ -1,0 +1,46 @@
+
+/* ============ Google Font ================== */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@400;600&family=Sono:wght@400;600&display=swap');
+
+/* =============== VARIABLES CSS =========== */
+:root{
+    
+    /* ======== Color ======== */
+   --container-color: hsl(53, 65%, 90%);
+   --first-color: rgb(149, 209, 204);
+   --second-color: hsl(205, 58%, 31%);
+
+   /* ========= Font and typography ========= */
+   --body-font: 'IBM Plex Sans Thai Looped', sans-serif;
+   --title-font: 'Sono', sans-serif;
+
+   --biggest-font-size: 3rem;
+   --h1-font-size: 2.5rem;
+   --h2-font-size: 2rem;
+   --h3-font-size: 1.7rem;
+   --normal-font-size: 1rem;
+   --small-font-size: 0.85rem;
+
+   /*========== Font weight ==========*/
+   --font-medium: 400;
+   --font-semi-bold: 600;
+}
+.grid-container{
+    display: grid;
+    grid-template-columns: auto;
+    position: relative;
+    align-items: center;
+}
+body{
+    text-align: center;
+    background-color: burlywood;
+    font-family: var(--title-font);
+    font-size: var(--h1-font-size);
+    font-weight: var(--font-semi-bold);
+}
+img{
+    height: 200px;
+    width: 200px;
+    border-radius: 80%;
+    object-fit: cover;
+}

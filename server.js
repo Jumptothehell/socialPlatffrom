@@ -83,8 +83,28 @@ app.post('/checkLogin',async (req,res) => {
     let password = req.body.password;
 
     let sql = `SELECT username, password, img FROM ${userinfo_table}`;
+
     let result = await queryDB(sql);
-    for(let i = 0; i <= result.length; i++)
+    console.log(result);
+    for(let i = 0; i < result.length; i++)
+    {
+        if(result[i].username == username && result[i].password == password){
+            res.cookie("username", username);
+            res.cookie("img", result[i].img);
+            return res.redirect('feed.html');
+        }
+    }
+    return res.redirect('login.html?error=1')    
+})
+app.post('/checkLogin',async (req,res) => {
+    let username = req.body.username;
+    let password = req.body.password;
+
+    let sql = `SELECT username, password, img FROM ${userinfo_table}`;
+
+    let result = await queryDB(sql);
+    console.log(result);
+    for(let i = 0; i < result.length; i++)
     {
         if(result[i].username == username && result[i].password == password){
             res.cookie("username", username);
@@ -122,21 +142,24 @@ app.post('/profilepic', (req,res) => {
     })
 })
 
-app.post('/lovedPost', async (req, res) => { 
-    // let sql = `SELECT id, username FROM ${userinfo_table}`;
-    // let result = await queryDB(sql);
+// app.post('/lovedPost', async (req, res) => { 
+//     // let sql = `SELECT id, username FROM ${userinfo_table}`;
+//     // let result = await queryDB(sql);
 
-    // let postsql = `SELECT id FROM ${userinfo_table}`;
-    // let postresult = await queryDB(sql);
-    // for (let i = 0; i <= result.length; i++)
-    // {
-    //     if(result[i].username == req.cookies.username){
-    //         let sql = `SELECT id, username FROM ${userinfo_table}`;
-    //         let result = await queryDB(sql);
-    //     }
-    // }
+//     // let postsql = `SELECT id FROM ${userinfo_table}`;
+//     // let postresult = await queryDB(sql);
+//     // for (let i = 0; i <= result.length; i++)
+//     // {
+//     //     if(result[i].username == req.cookies.username){
+//     //         let sql = `SELECT id, username FROM ${userinfo_table}`;
+//     //         let result = await queryDB(sql);
+//     //     }
+//     // }
+// })
+app.post('/seeprofile' , async (req, res) => {
+    return res.redirect('profile.html')  
 })
-
+ 
 app.get('/readPost', async (req,res) => {
     let sql = `SELECT id, msg, username, time FROM ${userpost_table}`;
     let result = await queryDB(sql);
@@ -154,5 +177,5 @@ app.post('/writePost',async (req,res) => {
 })
 
 app.listen(port, hostname, () => {
-    console.log(`Server running at   http://${hostname}:${port}/register.html`); // แก้เป็น register
+    console.log(`Server running at   http://${hostname}:${port}/login.html`); // แก้เป็น register
 });
