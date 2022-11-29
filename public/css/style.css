@@ -1,41 +1,92 @@
 /* ============ Google Font ================== */
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@400;600&family=Sono:wght@400;600&display=swap');
 
+:root{
+    
+    /* ======== Color ======== */
+   --container-color: hsl(53, 65%, 90%);
+   --first-color: rgb(149, 209, 204);
+   --second-color: hsl(205, 58%, 31%);
+
+   /* ========= Font and typography ========= */
+   --body-font: 'IBM Plex Sans Thai Looped', sans-serif;
+   --title-font: 'Sono', sans-serif;
+
+   --biggest-font-size: 3rem;
+   --h1-font-size: 2.5rem;
+   --h2-font-size: 1.8rem;
+   --h3-font-size: 1rem;
+   --normal-font-size: .85rem;
+   --small-font-size: .63rem;
+   --smaller-font-size: .55rem;
+
+   /*========== Font weight ==========*/
+   --font-medium: 400;
+   --font-semi-bold: 600;
+}
 body {
-    background: #fffeff;
-    font-family: 'Rubik', sans-serif;
-}
-
-form{
+    font-family: var(--title-font);
+    font-size: var(--title-font-size);
     text-align: center;
-    font-family: 'Sono', sans-serif;
+    margin: auto;
+    margin-top: 150px;
+    background-color: rgb(126, 156, 182);
 }
+h1{
+    margin: -5px;
+}
+span{
+    font-size: var(--small-font-size);
+    color: red;
+}
+.grid-container{
+    display: grid;
+    grid-template-columns: auto;
+    position: relative;
+    align-items: center;
 
+}
+.login-image{
+    position: absolute;
+    width: 100%;
+
+}
 #Website_logo {
+    position: static;
     display: flex;
     margin: auto;
+    padding: 20px;
     width: 20%;
-    border: 8px solid #eb8500;
     border-radius: 200px;
-    vertical-align: middle;
+}
+form{
+    width: 50%;
+    margin: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    background-color: hsla(244, 16%, 92%, .6);
+    box-shadow: 0 8px 20px hsla(19, 64%, 48%, .08);
+    border-radius: 50px;
 }
 
 fieldset{
     box-sizing: border-box;
     width: 50%;
     margin: 20px auto;
-    background:#EBF4FB;
-    border:1px solid #95D1CC; 
+    padding: 12px;
     justify-content: space-evenly;
+    border-radius: 20px;
 }
-
+legend{
+    font-size: var(--h3-font-size);
+}
 input{
-    font-size: 14px;
-    font-style: bold;
-    color: #fffeff;
-    background-color: #22296d;
-    vertical-align: middle;
+    font-family: var(--normal-font-size);
     display: flex;
-    margin: auto;
+    text-align: center;
     border-radius: 100px;
+    vertical-align: middle;
+    padding: 2px;
+    margin: 3px auto;
 }
