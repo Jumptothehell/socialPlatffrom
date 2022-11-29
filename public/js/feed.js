@@ -1,3 +1,5 @@
+const cookieParser = require("cookie-parser");
+
 function getCookie(name){
     var value = "";
     try{
@@ -20,6 +22,10 @@ checkCookie();
 window.onload = pageLoad;
 
 function pageLoad(){
+    var timer = setInterval(() => {
+        readPost()
+    },3000);
+
     document.getElementById("postbutton").onclick = getData;
 
     document.getElementById("displayPic").onclick = fileUpload;
@@ -125,7 +131,11 @@ function showPost(data){
         temp3.type = "submit";
         temp3.classList.add("nav_", "unloved");
         temp3.id = "nav-love" + [i];
-        temp3.setAttribute("onclick", "IsClicked(this.id)");
+        temp3.value = i;
+        temp3.setAttribute("onclick", "IsClicked(this.id, this.value)");
+        // temp3.onclick = function () {
+        //     var num = this.id.slice
+        // }
 
         var temp4 = document.createElement("div");
         temp4.id = "Icon-love";
@@ -136,19 +146,19 @@ function showPost(data){
 	}
 }
 
-function IsClicked(clickedID){
+function IsClicked(clickedID, clickedValue){
     let name = "#" + clickedID;
-
     let getLoved = document.querySelector(name);
     let countloved = getLoved.querySelector("#Icon-love");
-    // console.log(getLoved.parentNode.id);
 
     getLoved.classList.toggle("loved");
 
     if(getLoved.className == "nav_ unloved")
     {
         countloved.innerHTML = '<i class="ri-heart-line"></i>'
+        
     }else{
         countloved.innerHTML = '<i class="ri-heart-fill"></i>'
+
     }
 }

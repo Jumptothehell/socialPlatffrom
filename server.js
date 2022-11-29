@@ -34,7 +34,6 @@ const imageFilter = (req, file, cb) => {
 
 let userinfo_table = 'userinfo';
 let userpost_table = 'userpost';
-let userlovedpost_table = 'userlovedpost';
 
 const con = mysql.createConnection({
     host: "localhost",
@@ -60,20 +59,26 @@ const queryDB = (sql) => {
         })
     })
 }
+
+app.get('/logout', (req,res) => {
+    res.clearCookie('username');
+    res.clearCookie('img');
+    res.clearCookie('userid');
+    return res.redirect('login.html');
+})
+
 app.post('/regisDB',async (req, res) => { 
-    let sql = "CREATE TABLE IF NOT EXISTS userinfo (id INT AUTO_INCREMENT PRIMARY KEY, firstname VARCHAR(200), lastname VARCHAR(200), birthday DATE, email VARCHAR(200), username VARCHAR(200), password VARCHAR(20), img VARCHAR(200))"
+    let sql = "CREATE TABLE IF NOT EXISTS userinfo (userid INT AUTO_INCREMENT PRIMARY KEY, firstname VARCHAR(200), lastname VARCHAR(200), birthday DATE, email VARCHAR(200), username VARCHAR(200), password VARCHAR(20), img VARCHAR(200))"
     let result = await queryDB(sql);
 
-    sql = "CREATE TABLE IF NOT EXISTS userpost (id INT AUTO_INCREMENT PRIMARY KEY, msg VARCHAR(1000), username VARCHAR(200), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
-    result = await queryDB(sql);
-
-    sql = "CREATE TABLE IF NOT EXISTS userlovedpost (id INT AUTO_INCREMENT PRIMARY KEY, userid INT, postid INT, loved BOOLEAN)"
+    sql = "CREATE TABLE IF NOT EXISTS userpost (postid INT AUTO_INCREMENT PRIMARY KEY, msg VARCHAR(1000), username VARCHAR(200), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP, loved INT)";
     result = await queryDB(sql);
 
     sql = `INSERT INTO userinfo (firstname, lastname, birthday, email, username, password, img) VALUES ("${req.body.firstname}", "${req.body.lastname}", "${req.body.birthday}", "${req.body.email}", "${req.body.username}", "${req.body.password}", "avatar.png")`;
     result = await queryDB(sql);
     console.log("New record created successfully one");
-
+    
+    // res.cookie("userid", req.body.userid);
     res.cookie("username",req.body.username);
     return res.redirect('login.html');
 })
@@ -82,13 +87,14 @@ app.post('/checkLogin',async (req,res) => {
     let username = req.body.username;
     let password = req.body.password;
 
-    let sql = `SELECT username, password, img FROM ${userinfo_table}`;
+    let sql = `SELECT userid, username, password, img FROM ${userinfo_table}`;
     let result = await queryDB(sql);
     for(let i = 0; i <= result.length; i++)
     {
         if(result[i].username == username && result[i].password == password){
             res.cookie("username", username);
             res.cookie("img", result[i].img);
+            res.cookie("userid", result[i].userid);
             return res.redirect('feed.html');
         }
     }
@@ -122,23 +128,12 @@ app.post('/profilepic', (req,res) => {
     })
 })
 
-app.post('/lovedPost', async (req, res) => { 
-    // let sql = `SELECT id, username FROM ${userinfo_table}`;
-    // let result = await queryDB(sql);
-
-    // let postsql = `SELECT id FROM ${userinfo_table}`;
-    // let postresult = await queryDB(sql);
-    // for (let i = 0; i <= result.length; i++)
-    // {
-    //     if(result[i].username == req.cookies.username){
-    //         let sql = `SELECT id, username FROM ${userinfo_table}`;
-    //         let result = await queryDB(sql);
-    //     }
-    // }
+app.post('/updateHeart',(req,res) => {
+    let sql = `UPDATE ${userpost_table} SET loved = ${req.body.love} WHERE id = ${req.body.id}`;
 })
 
 app.get('/readPost', async (req,res) => {
-    let sql = `SELECT id, msg, username, time FROM ${userpost_table}`;
+    let sql = `SELECT postid, msg, username, time FROM ${userpost_table}`;
     let result = await queryDB(sql);
     result = Object.assign({}, result);
     res.json(result);
@@ -147,7 +142,7 @@ app.get('/readPost', async (req,res) => {
 app.post('/writePost',async (req,res) => {
     let sql = `INSERT INTO userpost (msg, username, time) VALUES ("${req.body.msg}", "${req.cookies.username}", NOW())`;
     let result = await queryDB(sql);
-    let sqlselect = `SELECT id, msg, username, time FROM ${userpost_table}`;
+    let sqlselect = `SELECT postid, msg, username, time FROM ${userpost_table}`;
     let resultselect = await queryDB(sqlselect);
     resultselect = Object.assign({}, resultselect);
     res.json(resultselect);

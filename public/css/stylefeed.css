@@ -142,6 +142,9 @@ div#feed-container{
 div.postmsg{
     font-weight: var(--font-semi-bold);
 }
+div.logout{
+    text-align: right;
+}
 div.postuser{
     margin-top: 4px;
     margin-left: 20px;
