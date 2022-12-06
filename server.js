@@ -64,7 +64,7 @@ app.post('/regisDB',async (req, res) => {
     let sql = "CREATE TABLE IF NOT EXISTS userinfo (id INT AUTO_INCREMENT PRIMARY KEY, firstname VARCHAR(200), lastname VARCHAR(200), birthday DATE, email VARCHAR(200), username VARCHAR(200), password VARCHAR(20), img VARCHAR(200))"
     let result = await queryDB(sql);
 
-    sql = "CREATE TABLE IF NOT EXISTS userpost (id INT AUTO_INCREMENT PRIMARY KEY, msg VARCHAR(1000), username VARCHAR(200), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+    sql = "CREATE TABLE IF NOT EXISTS userpost (id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(200), msg VARCHAR(1000), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
     result = await queryDB(sql);
 
     sql = "CREATE TABLE IF NOT EXISTS userlovedpost (id INT AUTO_INCREMENT PRIMARY KEY, userid INT, postid INT, loved BOOLEAN)"
@@ -82,31 +82,13 @@ app.post('/checkLogin',async (req,res) => {
     let username = req.body.username;
     let password = req.body.password;
 
-    let sql = `SELECT username, password, img FROM ${userinfo_table}`;
-
+    let sql = `SELECT id, username, password, img FROM ${userinfo_table}`;
     let result = await queryDB(sql);
-    console.log(result);
+
     for(let i = 0; i < result.length; i++)
     {
         if(result[i].username == username && result[i].password == password){
-            res.cookie("username", username);
-            res.cookie("img", result[i].img);
-            return res.redirect('feed.html');
-        }
-    }
-    return res.redirect('login.html?error=1')    
-})
-app.post('/checkLogin',async (req,res) => {
-    let username = req.body.username;
-    let password = req.body.password;
-
-    let sql = `SELECT username, password, img FROM ${userinfo_table}`;
-
-    let result = await queryDB(sql);
-    console.log(result);
-    for(let i = 0; i < result.length; i++)
-    {
-        if(result[i].username == username && result[i].password == password){
+            res.cookie("userid", result[i].id);
             res.cookie("username", username);
             res.cookie("img", result[i].img);
             return res.redirect('feed.html');
@@ -142,40 +124,52 @@ app.post('/profilepic', (req,res) => {
     })
 })
 
-// app.post('/lovedPost', async (req, res) => { 
-//     // let sql = `SELECT id, username FROM ${userinfo_table}`;
-//     // let result = await queryDB(sql);
-
-//     // let postsql = `SELECT id FROM ${userinfo_table}`;
-//     // let postresult = await queryDB(sql);
-//     // for (let i = 0; i <= result.length; i++)
-//     // {
-//     //     if(result[i].username == req.cookies.username){
-//     //         let sql = `SELECT id, username FROM ${userinfo_table}`;
-//     //         let result = await queryDB(sql);
-//     //     }
-//     // }
-// })
-app.post('/seeprofile' , async (req, res) => {
-    return res.redirect('profile.html')  
-})
- 
 app.get('/readPost', async (req,res) => {
-    let sql = `SELECT id, msg, username, time FROM ${userpost_table}`;
+    let sql = `SELECT * FROM ${userpost_table}`;
+    let result = await queryDB(sql);
+
+    for(let i =0; i < result.length; i++){
+        if(req.cookies.userid !== result[i].userid){
+            let sql = `INSERT INTO userlovedpost (userid, postid, loved) VALUES ("${req.cookies.userid}", "${result[i].id}", "${0}")`;
+            let Insertresult = await queryDB(sql);
+        }
+    }
+
+    result = Object.assign({}, result);
+    res.json(result);
+})
+
+app.get('/readlovePost', async (req, res) => {
+    let sql = `SELECT * FROM ${userlovedpost_table}`;
     let result = await queryDB(sql);
     result = Object.assign({}, result);
     res.json(result);
 })
 
 app.post('/writePost',async (req,res) => {
-    let sql = `INSERT INTO userpost (msg, username, time) VALUES ("${req.body.msg}", "${req.cookies.username}", NOW())`;
+    let sql = `INSERT INTO userpost (username, msg, time) VALUES ("${req.cookies.username}", "${req.body.msg}", NOW())`;
     let result = await queryDB(sql);
-    let sqlselect = `SELECT id, msg, username, time FROM ${userpost_table}`;
+
+    let sqlselect = `SELECT * FROM ${userpost_table}`;
     let resultselect = await queryDB(sqlselect);
+
+    for(let i =0; i < resultselect.length; i++){
+        if(resultselect[i].id == resultselect.length)
+        {
+            let sql = `INSERT INTO userlovedpost (userid, postid, loved) VALUES ("${req.cookies.userid}", "${resultselect[i].id}", "${0}")`;
+            let result = await queryDB(sql);
+        }
+    }
     resultselect = Object.assign({}, resultselect);
     res.json(resultselect);
 })
 
+app.post('/lovePost', async (req, res) => {
+    let sql = `UPDATE ${userlovedpost_table} SET loved = "${req.body.loved}" WHERE userid = '${req.cookies.userid}' AND postid = "${req.body.postid}"`;
+    let result = await queryDB(sql);
+    console.log('fav update!')
+})
+
 app.listen(port, hostname, () => {
-    console.log(`Server running at   http://${hostname}:${port}/login.html`); // แก้เป็น register
+    console.log(`Server running at   http://${hostname}:${port}/register.html`); // แก้เป็น register
 });
