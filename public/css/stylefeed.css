@@ -6,11 +6,10 @@
     --header-height: 3.5rem;
     
     /* ======== Color ======== */
-    --container-color: hsl(53, 65%, 90%);
-    --body-color: hsl(0, 33%, 92%);
-    --second-color: hsl(0, 44%, 84%);
-    --first-color: hsl(0, 47%, 64%);
+    --body-color: hsl(207, 31%, 81%);
     --title-color: hsl(219, 33%, 25%);
+    --first-color: hsl(216, 36%, 58%);
+    --second-color: hsl(0, 44%, 84%);
 
    /* ========= Font and typography ========= */
    --title-font: 'Secular One', sans-serif;
@@ -183,7 +182,7 @@ img {
     grid-area: postArea;
     background-color: white;
     border-radius: 50px;
-    margin-top: 50px;
+    margin-top: 55px;
     margin-left: 20px;
     margin-right: 20px;
     margin-bottom: 10px;
@@ -258,8 +257,8 @@ div#displayPic img{
     text-align: right;   
     font-size: var(--small-font-size);
 }
-.unloved__bt{
-    background-color: var(--first-color);
+.fav__{
+    background-color: var(--second-color);
     padding: 3px;
     padding-top: 4px;
     padding-right: 4px;
