@@ -1,30 +1,40 @@
-function getCookie(name){
-    var value = "";
-    try{
-        value = document.cookie.split("; ").find(row => row.startsWith(name)).split('=')[1];
-        return value;
-    }catch(err){
-        return false
-    }
-}
 window.onload = pageLoad;
 
 function pageLoad(){
-    var name = getCookie('username');
-    document.getElementById('username').innerHTML = name;
-    showImg('img/'+ getCookie('img'));
-}
+    var navMenu = document.getElementById('nav-menu')
+    var navToggle = document.getElementById('nav-toggle')
+    var navClose = document.getElementById('nav-close')
 
-function showImg(filename){
-    if(filename !==""){
-        var showpic = document.getElementById('displayPic');
-        showpic.innerHTML ="";
-        var temp = document.createElement('img');
-        temp.src = filename;
-        showpic.appendChild(temp);
+    ShowMenu(navToggle, navMenu);
+    HiddenMenu (navClose, navMenu);
+
+    var navLink = document.querySelectorAll('.nav__link')
+
+    const linkAction = () =>{
+        const navMenu = document.getElementById('nav-menu')
+        // When we click on each nav__link, we remove the show-menu class
+        navMenu.classList.remove('show-menu')
+    }
+    navLink.forEach(n => n.addEventListener('click', linkAction))
+    
+    console.log(getCookie('img'));
+    showImg('img/'+ getCookie('img'));
+    readPost();
+}
+/*===== MENU SHOW =====*/
+function ShowMenu (navToggle, navMenu) {
+    if(navToggle){
+        navToggle.addEventListener('click', () => {
+            navMenu.classList.add('show-menu')        
+        })
     }
 }
 
-function username(){
-    
+/*===== MENU HIDDEN =====*/
+function HiddenMenu (navClose, navMenu) {
+    if(navClose){
+        navClose.addEventListener('click', () =>{
+            navMenu.classList.remove('show-menu')
+        })
+    }
 }
