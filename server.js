@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
     filename: (req, file, cb) => {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
-  });
+});
 
 const imageFilter = (req, file, cb) => {
     // Accept images only
@@ -78,7 +78,6 @@ app.post('/regisDB',async (req, res) => {
     result = await queryDB(sql);
     console.log("New record created successfully one");
     
-    // res.cookie("userid", req.body.userid);
     res.cookie("username",req.body.username);
     return res.redirect('login.html');
 })
@@ -89,9 +88,11 @@ app.post('/checkLogin',async (req,res) => {
 
     let sql = `SELECT userid, username, password, img FROM ${userinfo_table}`;
     let result = await queryDB(sql);
-    for(let i = 0; i <= result.length; i++)
+
+    for(let i = 0; i < result.length; i++)
     {
         if(result[i].username == username && result[i].password == password){
+            res.cookie("userid", result[i].id);
             res.cookie("username", username);
             res.cookie("img", result[i].img);
             res.cookie("userid", result[i].userid);
@@ -132,6 +133,19 @@ app.post('/updateHeart',(req,res) => {
     let sql = `UPDATE ${userpost_table} SET loved = ${req.body.love} WHERE id = ${req.body.id}`;
 })
 
+app.get('/userdata', async (req,res) => {
+    let sql = `SELECT * FROM ${userinfo_table} WHERE id = ${req.cookies.userid}`;
+    let result = await queryDB(sql);
+
+    result = Object.assign({}, result);
+    res.json(result);
+})
+
+app.get('/return', async (req,res) => {
+    return res.redirect('feed.html');
+})
+
+
 app.get('/readPost', async (req,res) => {
     let sql = `SELECT postid, msg, username, time FROM ${userpost_table}`;
     let result = await queryDB(sql);
@@ -140,14 +154,28 @@ app.get('/readPost', async (req,res) => {
 })
 
 app.post('/writePost',async (req,res) => {
-    let sql = `INSERT INTO userpost (msg, username, time) VALUES ("${req.body.msg}", "${req.cookies.username}", NOW())`;
+    let sql = `INSERT INTO userpost (username, msg, time) VALUES ("${req.cookies.username}", "${req.body.msg}", NOW())`;
     let result = await queryDB(sql);
     let sqlselect = `SELECT postid, msg, username, time FROM ${userpost_table}`;
     let resultselect = await queryDB(sqlselect);
+
+    for(let i =0; i < resultselect.length; i++){
+        if(resultselect[i].id == resultselect.length)
+        {
+            let sql = `INSERT INTO userlovedpost (userid, postid, loved) VALUES ("${req.cookies.userid}", "${resultselect[i].id}", "${0}")`;
+            let result = await queryDB(sql);
+        }
+    }
     resultselect = Object.assign({}, resultselect);
     res.json(resultselect);
 })
 
+app.post('/lovePost', async (req, res) => {
+    let sql = `UPDATE ${userlovedpost_table} SET loved = "${req.body.loved}" WHERE userid = '${req.cookies.userid}' AND postid = "${req.body.postid}"`;
+    let result = await queryDB(sql);
+    console.log('fav update!')
+})
+
 app.listen(port, hostname, () => {
-    console.log(`Server running at   http://${hostname}:${port}/register.html`); // แก้เป็น register
+    console.log(`Server running at   http://${hostname}:${port}/login.html`); // แก้เป็น register
 });

@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset='UTF-8'>
-        <title>Login</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- ============ REMIXICON ============== -->
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
@@ -11,8 +11,44 @@
 
         <!-- ========= javascript ========== -->
         <script type="text/javascript" src='js/feed.js'></script>
+
+        <title>Social media website</title>
     </head>
     <body>
+                <!-- Thank you codes from Responsive Sushi Restaurant Website Design Using HTML CSS & Javascripts - Bedimcode -->
+
+        <!-- ===================== HEADER ==================== -->
+        <header class="header">
+            <nav class="nav container">
+                <a href="#" class="nav__logo">
+                    <img src="img/Website_logo.png" alt="logo image">
+                    Social Media
+                </a>
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list grid">
+
+                        <li class="nav__item">
+                            <a href="/logout" class="nav__link">Logout</a>
+                        </li>
+
+                    </ul>
+
+                    <!-- Close Button -->
+                    <div class="nav__close" id="nav-close">
+                        <i class="ri-close-fill"></i>
+                    </div>
+                </div>
+                
+                <div class="nav__buttons">
+                    <!-- Toggle button -->
+                    <div class="nav__toggle" id="nav-toggle">
+                        <i class="ri-settings-3-line"></i>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
         <div class="grid-container">
             <div class="item1">
                 <div id="displayPic">
@@ -23,6 +59,9 @@
                         <input type="file" id="fileField" name="avatar" value="fileToUpload" placeholder="" hidden>
                     </form>
                 </div>
+                <div class="username__card" id="username-card">
+                    <a class="usernameliked" id="username-link" href="/profilecard">Profile</a>
+                </div> 
             </div>
             <div class="item2">
                 <div class="logout"><a href="/logout"> Logout</a> </div>
@@ -36,10 +75,24 @@
                     <textarea name="msg" id="textmsg"  value="" placeholder="" rows="4" cols="50"></textarea><br>
                     <button id="postbutton">Post</button>
                 </div>
+                    <div class="welcome__tx">
+                        <h1>
+                            HELLO
+                            <span id="username">
+
+                            </span>.
+                            <h3>Tell us, What your feeling ? </h3>
+                        </h1>
+                    </div>
+                    <div id="posting">
+                        <textarea class="text__area" name="msg" id="textmsg"  value="" placeholder="" rows="4" cols="50"></textarea><br>
+                        <button class="post__bt" id="postbutton">Post</button>
+                    </div>
             </div>
             <div class="item3">
                 <hr>
                 <div id="feed-container">
+
                 </div>
             </div>
         </div>

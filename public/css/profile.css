@@ -45,17 +45,13 @@ html{
 }
 
 body{
+    text-align: center;
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
     background-color: var(--body-color);
     color: var(--title-color);
 }
 
-h1, h2, h3 {
-    color: var(--title-color);
-    font-weight: var(--font-medium);
-}
-  
 ul {
     list-style: none;
 }
@@ -64,15 +60,14 @@ a {
     text-decoration: none;
   }
 
+h1, h2, h3 {
+    color: var(--title-color);
+    font-weight: var(--font-medium);
+}
+
 img {
     max-width: 100%;
     height: auto;
-}
-
-/*=============== REUSABLE CSS CLASSES ===============*/
-
-.hiddle{
-    display: none;
 }
 
 /* =================== HEADER & NAV ==================== */
@@ -166,104 +161,23 @@ img {
     top:0;
 }
 
-.text__area{
-    width: 350px;
-    margin-top: 10px;
-    margin-left: 20px;
-    padding: 10px;
-    border-top: 2px solid var(--first-color);
-    border-radius: 30px;
-}
-.item1 {
-    grid-area: avatarArea;
-    margin-top: 55px;
-}
-.item2 {
-    grid-area: postArea;
+/* ========================================== BODY ========================================== */
+.grid-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    width: 300px;
+    height: 400px;
     background-color: white;
-    border-radius: 50px;
-    margin-top: 55px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 10px;
-}
-.item3 {grid-area: feedArea;}
-
-.grid-container{
-    display: grid;
-
-    grid-template-areas: 
-    'avatarArea postArea'
-    'feedArea feedArea';
-    grid-template-columns: auto;
-    grid-gap: 5px;
-    padding: 10px;
-    word-wrap: break-word;
-}
-div#displayPic img{
-    display: block;
-    margin: auto;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-.usernameliked{
-    display: block;
-    text-align: center;
-    color: black;
-}
-.usernameliked:hover{
-    color: var(--first-color);
-}
-.welcome__tx{
-    padding-top: 20px;
-    margin-left: 35px;
-    font-family: var(--body-font);
-}
-.post__bt{
-    background-color: var(--first-color);
-    font-family: var(--body-font);
-    padding-left: 4px;
-    padding-right: 4px;
-    margin-top: 5px;
-    margin-left: 30px;
-    margin-bottom: 20px;
     border-radius: 20px;
-    border: none;
 }
-.newfeeds{
-    background-color: white;
-    border-radius: 50px;
-    padding: 30px;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    margin-left: 50px;
-    margin-right: 50px;
-}
-.poster__img{
-    width: 60px;
-    height: 60px;
+
+.profilepic img{
+    width: 200px;
+    height: 200px;
     object-fit: cover;
     border-radius: 50%;
-}
-.postuser{
-    margin-bottom: 20px;
-}
-.poster__msg{
-    margin-bottom: 20px;
-}
-.posttime{
-    text-align: right;   
-    font-size: var(--small-font-size);
-}
-.fav__{
-    background-color: var(--second-color);
-    padding: 3px;
-    padding-top: 4px;
-    padding-right: 4px;
-    padding-bottom: 0px;
-    border-radius: 50%;
-    border: none;
-    outline: none;
 }
