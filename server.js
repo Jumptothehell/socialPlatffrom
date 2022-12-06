@@ -133,10 +133,21 @@ app.post('/profilepic', (req,res) => {
 })
 
 app.get('/profilecard', async (req,res) => {
-    // let sql = `SELECT * FROM ${userinfo_table} WHERE userid = ${req.cookies.userid}`;
-    // let result = await queryDB(sql);
     return res.redirect('profile.html');
 })
+
+app.get('/userdata', async (req,res) => {
+    let sql = `SELECT * FROM ${userinfo_table} WHERE id = ${req.cookies.userid}`;
+    let result = await queryDB(sql);
+
+    result = Object.assign({}, result);
+    res.json(result);
+})
+
+app.get('/return', async (req,res) => {
+    return res.redirect('feed.html');
+})
+
 
 app.get('/readPost', async (req,res) => {
     let sql = `SELECT * FROM ${userpost_table}`;
@@ -148,7 +159,6 @@ app.get('/readPost', async (req,res) => {
             let Insertresult = await queryDB(sql);
         }
     }
-
     result = Object.assign({}, result);
     res.json(result);
 })
