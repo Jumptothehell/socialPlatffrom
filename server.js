@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
     filename: (req, file, cb) => {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
-  });
+});
 
 const imageFilter = (req, file, cb) => {
     // Accept images only
@@ -60,6 +60,14 @@ const queryDB = (sql) => {
         })
     })
 }
+
+app.get('/logout', async (req,res) => {
+    res.clearCookie('userid');
+    res.clearCookie('username');
+    res.clearCookie('img');
+    return res.redirect('login.html');
+})
+
 app.post('/regisDB',async (req, res) => { 
     let sql = "CREATE TABLE IF NOT EXISTS userinfo (id INT AUTO_INCREMENT PRIMARY KEY, firstname VARCHAR(200), lastname VARCHAR(200), birthday DATE, email VARCHAR(200), username VARCHAR(200), password VARCHAR(20), img VARCHAR(200))"
     let result = await queryDB(sql);
@@ -122,6 +130,12 @@ app.post('/profilepic', (req,res) => {
         res.cookie("img", req.file.filename);
         return res.redirect('feed.html');
     })
+})
+
+app.get('/profilecard', async (req,res) => {
+    // let sql = `SELECT * FROM ${userinfo_table} WHERE userid = ${req.cookies.userid}`;
+    // let result = await queryDB(sql);
+    return res.redirect('profile.html');
 })
 
 app.get('/readPost', async (req,res) => {
