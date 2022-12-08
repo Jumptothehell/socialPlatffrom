@@ -101,7 +101,7 @@ async function readPost(){
 async function readfavPost(){
     let readfav_ = await fetch('/readlovePost')
     let content = await readfav_.json();
-    console.log(content);
+
     return content;
 }
 
@@ -123,7 +123,6 @@ async function writePost(msg){
     let content = await postout.json();
     let favcontent = await readfavPost();
 
-    console.log(favcontent);
     showPost(content, favcontent);
 }
 
@@ -162,7 +161,6 @@ async function favPost(postid, loved){
 }
 
 function showPost(data, favdata){
-    console.log(favdata);
 	var keys = Object.keys(data);
 	var divTag = document.getElementById("feed-container");
 	divTag.innerHTML = "";

@@ -181,3 +181,23 @@ img {
     object-fit: cover;
     border-radius: 50%;
 }
+
+@media screen and (min-width: 765px){
+    .nav{
+        column-gap: 3rem;
+    }
+
+    .nav__toggle,
+    .nav__close{
+        display: none;
+    }
+
+    .nav__list{
+        flex-direction: row;
+        column-gap: 3rem;
+    }
+
+    .nav__menu{
+        margin-left: auto;
+    }
+}
