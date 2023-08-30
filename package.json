@@ -10,7 +10,7 @@
     "mysql": "^2.18.1",
     "parser": "^0.1.4",
     "path": "^0.12.7",
-    "play-sound": "^1.1.5",
+    "play-sound": "^1.1.6",
     "remixicon": "^2.5.0",
     "save": "^2.9.0"
   },
